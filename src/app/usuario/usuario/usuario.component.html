@@ -1,0 +1,58 @@
+<h1>Usuarios</h1>
+<table>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Perfil</th>
+      <th>Apliacacion</th>
+    </tr>
+    <tr *ngFor ="let usuario of usuarios">
+      <td>{{usuario.id}}</td>
+      <td>{{usuario.nombre}}</td>
+      <td>{{usuario.perfil.nombre}}</td>
+      <td>{{usuario.perfil.aplicacion.nombre}}</td>
+      <button (click)="borrar(usuario.id)" class="button" type="button">Borrar</button>
+    </tr>
+  </table>
+
+
+  <h2>Insertar</h2>
+
+  <form [formGroup]="checkboxFormGroup">
+    <div>
+      <label for="checkbox">Actualizar</label>
+      <input (change)="changeActualizar()" type="checkbox" id="checkbox" name="checkbox" formControlName="checkbox">
+    </div>
+  </form>
+
+  <form [formGroup]="guardarForm" (ngSubmit)="guardar()" *ngIf="!actualizarCheckbox">
+      <div>
+        <label for="nombre">Ingrese nombre:</label> <br>
+        <input id="nombre" type="text" formControlName="nombre"><br><br>
+      </div>
+      <div>
+        <label for="perfil">Ingrese perfil:</label> <br>
+        <select name="perfil" id="perfil" formControlName="perfil">
+          <option *ngFor="let perfil of perfiles" value="{{perfil.id}}">{{perfil.nombre}} || {{perfil.aplicacion.nombre}}</option>
+        </select><br><br>
+      </div>
+      <button class="button" type="submit">Crear usuario</button>
+  </form>
+
+  <form [formGroup]="actualizaForm" (ngSubmit)="actualizar()" *ngIf="actualizarCheckbox">
+    <label for="id">Ingrese id:</label> <br>
+    <select name="id" id="id" formControlName="id">
+      <option *ngFor="let usuario of usuarios" value="{{usuario.id}}">{{usuario.id}} {{usuario.nombre}}</option>
+    </select>
+    <div>
+      <label for="nombre">Ingrese nombre:</label> <br>
+      <input id="nombre" type="text" formControlName="nombre"><br><br>
+    </div>
+    <div>
+      <label for="perfil">Ingrese perfil:</label> <br>
+      <select name="perfil" id="perfil" formControlName="perfil">
+        <option *ngFor="let perfil of perfiles" value="{{perfil.id}}">{{perfil.nombre}} || {{perfil.aplicacion.nombre}}</option>
+      </select><br><br>
+    </div>
+    <button class="button" type="submit">Crear usuario</button>
+</form>
